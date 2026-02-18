@@ -1,0 +1,325 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar */
+nav {
+    background: transparent;
+    border: none;
+}
+
+nav.scrolled {
+    background: rgba(10, 8, 5, 0.85);
+    backdrop-filter: blur(12px);
+}
+
+/* Hero */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #0a0805;
+}
+
+/* Simulated food photo background using CSS gradient layers */
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        /* Dark vignette on left for text readability */
+        linear-gradient(to right, rgba(5, 4, 2, 0.92) 0%, rgba(5, 4, 2, 0.75) 40%, rgba(5, 4, 2, 0.2) 70%, rgba(5, 4, 2, 0.4) 100%),
+        /* Bottom vignette */
+        linear-gradient(to top, rgba(5, 4, 2, 0.6) 0%, transparent 40%),
+        /* Warm food-toned background for placeholder */
+        radial-gradient(ellipse at 70% 40%, #8B4513 0%, #5C2E00 30%, #1a0d00 60%, #0a0805 100%);
+    z-index: 1;
+}
+
+/* Decorative food image placeholder shapes */
+.hero-food-decor {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 65%;
+    height: 100%;
+    z-index: 0;
+    background:
+        /* Simulate warm golden pastry tones */
+        radial-gradient(ellipse at 60% 50%, #c87941 0%, #8B4513 25%, #4a1e00 55%, transparent 80%);
+    opacity: 0.8;
+}
+
+/* Food photo — replace src with your actual background image */
+.hero-photo {
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/bglandingpage.png');
+    background-size: cover;
+    background-position: center right;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to right, rgba(5, 4, 2, 0.92) 0%, rgba(5, 4, 2, 0.78) 35%, rgba(5, 4, 2, 0.25) 65%, rgba(5, 4, 2, 0.45) 100%),
+        linear-gradient(to top, rgba(5, 4, 2, 0.55) 0%, transparent 35%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Typography */
+.label-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #d4a96a;
+    font-weight: 400;
+}
+
+.hero-headline {
+    font-family: 'Poppins', Georgia, serif;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.08;
+    color: #f5f0e8;
+    text-shadow: 0 2px 32px rgba(0, 0, 0, 0.5);
+}
+
+.hero-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    color: #b8a898;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+}
+
+/* CTA Buttons */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #c0602a;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 0.75rem 1.75rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background: #a84e22;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: #f0ebe3;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 0.75rem 1.75rem;
+    border-radius: 6px;
+    border: 1.5px solid rgba(240, 235, 227, 0.45);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+}
+
+.btn-secondary:hover {
+    border-color: rgba(240, 235, 227, 0.85);
+    background: rgba(240, 235, 227, 0.07);
+}
+
+/* Decorative divider */
+.divider-line {
+    display: inline-block;
+    width: 2px;
+    height: 1.4em;
+    background: #d4a96a;
+    vertical-align: middle;
+    margin: 0 0.5rem;
+    opacity: 0.6;
+}
+
+/* Navbar links */
+.nav-link {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(245, 240, 232, 0.85);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #d4a96a;
+}
+
+/* Fade-in animation */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-up {
+    animation: fadeUp 0.8s ease both;
+}
+
+.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.delay-2 {
+    animation-delay: 0.25s;
+}
+
+.delay-3 {
+    animation-delay: 0.42s;
+}
+
+.delay-4 {
+    animation-delay: 0.58s;
+}
+
+.delay-5 {
+    animation-delay: 0.72s;
+}
+
+/* Scroll indicator */
+@keyframes bounce-y {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(6px);
+    }
+}
+
+
+/* wa button */
+.wa-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #25D366;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+}
+.wa-btn:hover { background: #1ebe5d; transform: translateY(-1px); }
+.wa-btn:active { transform: scale(0.97); }
+
+
+.scroll-dot {
+    animation: bounce-y 1.6s ease-in-out infinite;
+}
+
+/* Extra grid hidden by default — NO space taken */
+#extraGrid {
+    display: none;
+}
+
+#extraGrid.open {
+    display: grid;
+}
+
+/* Each card starts invisible, animates in when .revealed added */
+.card-extra {
+    opacity: 0;
+    transform: translateY(36px) scale(0.97);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.card-extra.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Stagger delays */
+.card-extra:nth-child(1) {
+    transition-delay: 0.04s;
+}
+
+.card-extra:nth-child(2) {
+    transition-delay: 0.13s;
+}
+
+.card-extra:nth-child(3) {
+    transition-delay: 0.22s;
+}
+
+/* Tombol - icon rotate */
+#toggleBtn svg.arrow-icon {
+    transition: transform 0.35s ease;
+}
+
+#toggleBtn.expanded svg.arrow-icon {
+    transform: rotate(180deg);
+}
+
+/* Shimmer on button */
+#toggleBtn {
+    position: relative;
+    overflow: hidden;
+}
+
+#toggleBtn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.12) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+#toggleBtn:hover::after {
+    transform: translateX(100%);
+}
+
+/* Divider fade */
+.expand-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #3a2e20, transparent);
+    margin: 2.5rem 0;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.1s;
+}
+
+.expand-divider.visible {
+    opacity: 1;
+}
