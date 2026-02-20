@@ -75,3 +75,10 @@ if (toggleBtn) {
     }
   });
 }
+
+function switchExploreTab(tab) {
+    document.querySelectorAll('.explore-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.explore-tab').forEach(t => t.classList.remove('active-tab'));
+    document.getElementById('panel-' + tab).classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active-tab');
+}
