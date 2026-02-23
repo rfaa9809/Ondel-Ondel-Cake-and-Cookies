@@ -63,9 +63,60 @@
         .expand-divider.visible {
             opacity: 1;
         }
+#scrollTopBtn {
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+  width: 55px;
+  height: 55px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: white;
+
+  background: linear-gradient(135deg, #8B5E34, #F28C38);
+  box-shadow: 0 8px 25px rgba(242, 140, 56, 0.5);
+
+  /* 🔥 INI YANG MEMBUAT ICON TEPAT DI TENGAH */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  z-index: 999;
+}
+
+#scrollTopBtn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#scrollTopBtn:hover {
+  transform: translateY(0) scale(1.1);
+  box-shadow: 0 12px 30px rgba(244, 180, 0, 0.7);
+}
+
+#scrollTopBtn svg {
+  width: 26px;
+  height: 26px;
+  display: block; /* penting agar tidak turun sedikit */
+}
     </style>
 </head>
-
+<button id="scrollTopBtn" onclick="scrollToTop()">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <path d="M12 19V5M12 5L5 12M12 5L19 12" 
+          stroke="white" 
+          stroke-width="2.5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+  </svg>
+</button>
 <body class="bg-[#0a0805]">
 
     <!-- navbar -->
@@ -93,7 +144,7 @@
                     <li><a href="#" class="nav-link active">Home</a></li>
                     <li><a href="about.html" class="nav-link">About</a></li>
                     <li><a href="contact.html" class="nav-link">Contact Us</a></li>
-                    <li><a href="#" class="nav-link">Services</a></li>
+                    <li><a href="Services.html" class="nav-link">Services</a></li>
                 </ul>
             </div>
         </div>

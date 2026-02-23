@@ -82,3 +82,20 @@ function switchExploreTab(tab) {
     document.getElementById('panel-' + tab).classList.add('active');
     document.getElementById('tab-' + tab).classList.add('active-tab');
 }
+
+   const scrollBtn = document.getElementById("scrollTopBtn");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      scrollBtn.classList.add("show");
+    } else {
+      scrollBtn.classList.remove("show");
+    }
+  });
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
