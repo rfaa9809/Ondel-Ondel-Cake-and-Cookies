@@ -1,256 +1,547 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ondel-Ondel Cake & Cookies</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="assets/css/index.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ondel-Ondel Cake & Cookies</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="assets/css/index.css" rel="stylesheet" />
+
+  <style>
+    /* ===== Scroll to top button (punya kamu) ===== */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 35px;
+      right: 35px;
+      width: 55px;
+      height: 55px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      background: linear-gradient(135deg, #8B5E34, #F28C38);
+      box-shadow: 0 8px 25px rgba(242, 140, 56, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.4s ease;
+      z-index: 999;
+    }
+    #scrollTopBtn.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    #scrollTopBtn:hover {
+      transform: translateY(0) scale(1.1);
+      box-shadow: 0 12px 30px rgba(244, 180, 0, 0.7);
+    }
+    #scrollTopBtn svg {
+      width: 26px;
+      height: 26px;
+      display: block;
+    }
+
+    /* ===== Premium background accents (tanpa ubah warna utama) ===== */
+    .bg-accents::before,
+    .bg-accents::after{
+      content:"";
+      position:fixed;
+      width:520px;height:520px;
+      border-radius:999px;
+      filter: blur(90px);
+      opacity:.20;
+      pointer-events:none;
+      z-index:0;
+    }
+    .bg-accents::before{ top:-160px; left:-160px; background:#c0602a; }
+    .bg-accents::after{ bottom:-180px; right:-180px; background:#d4a96a; }
+
+    .soft-divider{
+      height:1px;
+      background: linear-gradient(to right, transparent, #2a1f10, transparent);
+    }
+
+    .badge-tag{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.45rem .9rem;
+      border-radius:999px;
+      border:1px solid #2a1f10;
+      background: rgba(13,9,5,.55);
+      color:#b8a898;
+      font-size:.75rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-family:'DM Sans',sans-serif;
+    }
+
+    .glass{
+      background: rgba(22,16,8,.78);
+      border: 1px solid #2a1f10;
+      backdrop-filter: blur(10px);
+    }
+
+    .card{
+      position:relative;
+      border-radius:20px;
+      overflow:hidden;
+      transition: transform .25s ease, border-color .25s ease;
+    }
+    .card:hover{
+      transform: translateY(-4px);
+      border-color: rgba(212,169,106,.35);
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(700px circle at var(--x,50%) var(--y,0%),
+        rgba(212,169,106,.22), transparent 55%);
+      opacity:0;
+      transition: opacity .35s ease;
+      pointer-events:none;
+    }
+    .card:hover::before{ opacity:1; }
+
+    .section-title{
+      font-family:'Playfair Display',serif;
+      font-style: italic;
+    }
+
+    .icon-chip{
+      width:44px;height:44px;
+      border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid #2a1f10;
+      background: rgba(13,9,5,.45);
+      flex: 0 0 auto;
+    }
+
+    /* Scroll hint (klik turun) */
+    .scroll-hint{
+      position:absolute;
+      bottom:26px;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:10;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.5rem;
+      opacity:.65;
+      cursor:pointer;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .scroll-hint:hover{
+      opacity:1;
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    /* Reveal animation */
+    .reveal{
+      opacity:0;
+      transform: translateY(14px);
+      transition: all .65s ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Timeline */
+    .timeline{
+      position:relative;
+      padding-left:22px;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:6px; top:8px; bottom:8px;
+      width:2px;
+      background: linear-gradient(to bottom, rgba(192,96,42,.0), rgba(192,96,42,.55), rgba(42,31,16,.0));
+    }
+    .dot{
+      width:14px;height:14px;border-radius:999px;
+      background:#d4a96a;
+      box-shadow:0 0 0 6px rgba(212,169,106,.08);
+      flex:0 0 auto;
+      margin-top:4px;
+    }
+  </style>
 </head>
-<style>
-  #scrollTopBtn {
-    position: fixed;
-    bottom: 35px;
-    right: 35px;
-    width: 55px;
-    height: 55px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
 
-    background: linear-gradient(135deg, #8B5E34, #F28C38);
-    box-shadow: 0 8px 25px rgba(242, 140, 56, 0.5);
-
-    /* ✅ bikin icon panah tepat di tengah */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.4s ease;
-    z-index: 999;
-  }
-
-  #scrollTopBtn.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  /* ✅ hover aman (nggak ganggu animasi show) */
-  #scrollTopBtn:hover {
-    transform: translateY(0) scale(1.1);
-    box-shadow: 0 12px 30px rgba(244, 180, 0, 0.7);
-  }
-
-  /* ✅ biar svg gak “turun” sedikit */
-  #scrollTopBtn svg {
-    width: 26px;
-    height: 26px;
-    display: block;
-  }
-</style>
-
-<button id="scrollTopBtn" onclick="scrollToTop()" aria-label="Scroll to top">
-  <svg viewBox="0 0 24 24" fill="none">
-    <path d="M12 19V5M12 5L5 12M12 5L19 12"
-      stroke="white"
-      stroke-width="2.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"/>
-  </svg>
-</button>
 <body class="bg-[#0a0805]">
-    <nav class="fixed w-full z-20 top-0 start-0" id="mainNav">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 py-5">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-[#c0602a] flex items-center justify-center">
-                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3a1 1 0 110 2 1 1 0 010-2zm-3 8l1.5-4.5h3L13 13H7z" />
-                    </svg>
-                </div>
-                <span class="text-[#f5f0e8] font-semibold text-base tracking-wide"
-                    style="font-family:'Playfair Display',serif">Ondel-Ondel</span>
-            </a>
-            <button data-collapse-toggle="navbar-main" type="button"
-                class="inline-flex items-center p-2 w-10 h-10 justify-center text-[#b8a898] rounded-md md:hidden hover:text-[#f5f0e8]"
-                aria-controls="navbar-main" aria-expanded="false">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
-                </svg>
-            </button>
-            <div class="hidden w-full md:block md:w-auto" id="navbar-main">
-                <ul class="flex flex-col md:flex-row md:gap-8 gap-4 mt-4 md:mt-0 p-4 md:p-0">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link active">About</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact Us</a></li>
-                    <li><a href="Services.html" class="nav-link">Services</a></li>
-                </ul>
-            </div>
+  <!-- Scroll to top -->
+  <button id="scrollTopBtn" onclick="scrollToTop()" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M12 19V5M12 5L5 12M12 5L19 12"
+        stroke="white"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- NAVBAR (tetap seperti punya kamu) -->
+  <nav class="fixed w-full z-20 top-0 start-0" id="mainNav">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 py-5">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-[#c0602a] flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3a1 1 0 110 2 1 1 0 010-2zm-3 8l1.5-4.5h3L13 13H7z" />
+          </svg>
         </div>
-    </nav>
-    </nav>
-    <div class="h-24"></div>
+        <span class="text-[#f5f0e8] font-semibold text-base tracking-wide"
+          style="font-family:'Playfair Display',serif">Ondel-Ondel</span>
+      </a>
 
-    <section class="py-14 px-6 sm:px-10 lg:px-20">
-    <div class="max-w-screen-xl mx-auto text-center">
-      <p class="label-tag mb-3">✦ &nbsp; Tentang Kami</p>
-      <h1 class="text-4xl sm:text-5xl font-bold text-[#f5f0e8]"
-        style="font-family:'Playfair Display',serif; font-style:italic;">
-        Sejarah, Visi, Misi & SWOT
-      </h1>
-      <div class="w-16 h-0.5 bg-[#c0602a] mx-auto mt-5 rounded-full"></div>
-     
-    </div>
-  </section>
+      <button data-collapse-toggle="navbar-main" type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-[#b8a898] rounded-md md:hidden hover:text-[#f5f0e8]"
+        aria-controls="navbar-main" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
+        </svg>
+      </button>
 
-  <!-- SEJARAH -->
-  <section class="py-12 px-6 sm:px-10 lg:px-20">
-    <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-      <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-        <h2 class="text-2xl font-semibold text-[#f5f0e8] mb-4"
-          style="font-family:'Playfair Display',serif;">
-          Sejarah Ondel-Ondel
-        </h2>
-        <p class="text-[#b8a898] leading-relaxed">
-          Ondel-Ondel lahir dari dapur rumahan dan resep keluarga yang dibuat saat momen spesial.
-          Berawal dari permintaan teman dan keluarga, kami mulai memproduksi secara konsisten
-          dengan fokus pada bahan premium, rasa yang “nagih”, dan packaging yang rapi.
-        </p>
-        <p class="text-[#b8a898] leading-relaxed mt-4">
-          Seiring waktu, Ondel-Ondel berkembang menjadi pilihan favorit untuk hampers, event,
-          dan kebutuhan snack premium di Jakarta dan sekitarnya.
-        </p>
-      </div>
-
-      <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-        <h3 class="text-[#d4a96a] text-lg font-semibold mb-4">Highlight</h3>
-        <ul class="text-[#b8a898] space-y-3">
-          <li class="flex gap-3">
-            <span class="text-[#c0602a]">•</span>
-            <span><b class="text-[#f5f0e8] font-semibold">Fokus:</b> Kue kering premium & hampers</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="text-[#c0602a]">•</span>
-            <span><b class="text-[#f5f0e8] font-semibold">Bahan:</b> Pilihan & kualitas terjaga</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="text-[#c0602a]">•</span>
-            <span><b class="text-[#f5f0e8] font-semibold">Target:</b> Pelanggan rumahan & corporate</span>
-          </li>
+      <div class="hidden w-full md:block md:w-auto" id="navbar-main">
+        <ul class="flex flex-col md:flex-row md:gap-8 gap-4 mt-4 md:mt-0 p-4 md:p-0">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link active">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+          <li><a href="Services.html" class="nav-link">Services</a></li>
         </ul>
       </div>
     </div>
-  </section>
+  </nav>
 
-  <!-- VISI MISI -->
-  <section class="py-12 px-6 sm:px-10 lg:px-20">
-    <div class="max-w-screen-xl mx-auto">
-      <div class="text-center mb-10">
-        <p class="label-tag mb-3">✦ &nbsp; Arah Kami</p>
-        <h2 class="text-4xl font-bold text-[#f5f0e8]"
-          style="font-family:'Playfair Display',serif; font-style:italic;">
-          Visi & Misi
-        </h2>
-        <div class="w-16 h-0.5 bg-[#c0602a] mx-auto mt-5 rounded-full"></div>
-      </div>
+  <div class="h-24"></div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-          <h3 class="text-[#d4a96a] text-xl font-semibold mb-3">Visi</h3>
-          <p class="text-[#b8a898] leading-relaxed">
-            Menjadi brand kue kering premium terpercaya dengan kualitas rasa yang konsisten
-            dan pengalaman belanja yang memuaskan.
-          </p>
-        </div>
+  <!-- MAIN CONTENT (design upgrade) -->
+  <main class="relative bg-accents z-0">
 
-        <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-          <h3 class="text-[#d4a96a] text-xl font-semibold mb-3">Misi</h3>
-          <ul class="text-[#b8a898] space-y-2 leading-relaxed">
-            <li>• Menggunakan bahan premium dan proses produksi yang higienis</li>
-            <li>• Menjaga konsistensi rasa, tekstur, dan kualitas tiap batch</li>
-            <li>• Memberikan pelayanan cepat, ramah, dan transparan</li>
-            <li>• Mengembangkan inovasi varian dan packaging hampers</li>
-          </ul>
+    <!-- HERO ABOUT -->
+    <section class="relative pt-10 pb-14 px-6 sm:px-10 lg:px-20">
+      <div class="max-w-screen-xl mx-auto text-center relative z-10 reveal">
+        <span class="badge-tag mb-4 inline-flex">✦ <span>Tentang Kami</span></span>
+
+        <h1 class="text-7xl sm:text-6xl font-bold text-[#f5f0e8] section-title">
+          Sejarah Ondel-Ondel
+        </h1>
+
+        <p class="text-[#b8a898] mt-5 max-w-2xl mx-auto leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+          Dari resep keluarga menjadi pilihan hampers premium—konsisten, rapi, dan selalu bikin nagih.
+        </p>
+
+        <div class="w-20 h-0.5 bg-[#c0602a] mx-auto mt-7 rounded-full"></div>
+
+        <div class="mt-10 flex flex-wrap justify-center gap-2">
+          <span class="badge-tag">Premium Ingredients</span>
+          <span class="badge-tag">Handmade</span>
+          <span class="badge-tag">Hampers Ready</span>
+          <span class="badge-tag">Fast Response</span>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- SWOT -->
-  <section class="py-12 px-6 sm:px-10 lg:px-20">
-    <div class="max-w-screen-xl mx-auto">
-      <div class="text-center mb-10">
-        <p class="label-tag mb-3">✦ &nbsp; Analisis</p>
-        <h2 class="text-4xl font-bold text-[#f5f0e8]"
-          style="font-family:'Playfair Display',serif; font-style:italic;">
-          SWOT
-        </h2>
-        <div class="w-16 h-0.5 bg-[#c0602a] mx-auto mt-5 rounded-full"></div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-          <h3 class="text-[#d4a96a] text-xl font-semibold mb-3">Strength</h3>
-          <ul class="text-[#b8a898] space-y-2">
-            <li>• Bahan premium & rasa konsisten</li>
-            <li>• Brand image elegan, cocok untuk hampers</li>
-            <li>• Rating & repeat order tinggi</li>
-          </ul>
-        </div>
-
-        <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-          <h3 class="text-[#d4a96a] text-xl font-semibold mb-3">Weakness</h3>
-          <ul class="text-[#b8a898] space-y-2">
-            <li>• Kapasitas produksi terbatas</li>
-            <li>• Ketergantungan pada musim (high season)</li>
-            <li>• Distribusi belum luas</li>
-          </ul>
-        </div>
-
-        <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-          <h3 class="text-[#d4a96a] text-xl font-semibold mb-3">Opportunity</h3>
-          <ul class="text-[#b8a898] space-y-2">
-            <li>• Tren snack premium & hampers meningkat</li>
-            <li>• Marketplace & social commerce berkembang</li>
-            <li>• Peluang kerjasama corporate gift</li>
-          </ul>
-        </div>
-
-        <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-          <h3 class="text-[#d4a96a] text-xl font-semibold mb-3">Threat</h3>
-          <ul class="text-[#b8a898] space-y-2">
-            <li>• Kompetitor harga lebih murah</li>
-            <li>• Fluktuasi harga bahan baku</li>
-            <li>• Tren produk cepat berubah</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-    <section class="hero px-6">
-        <div class="hero-content max-w-screen-xl mx-auto">
-            <h1 class="hero-headline text-5xl">
-                Cita Rasa<br>Bikin Ketagihan
-            </h1>
-            <p class="hero-sub mt-6 max-w-lg">
-                Kualitas premium, harga terjangkau — dari dapur kami langsung ke meja makan Anda.
-            </p>
-
-            <div class="mt-8">
-                <a href="#" class="btn-primary">Beli Sekarang</a>
-            </div>
-        </div>
+      
     </section>
 
-    <footer style="background:#0d0905; border-top: 1px solid #2a1f10;">
+    <div class="soft-divider max-w-screen-xl mx-auto"></div>
+
+    <!-- SEJARAH + TIMELINE + HIGHLIGHT -->
+    <section id="sejarahSection" class="py-14 px-6 sm:px-10 lg:px-20">
+      <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+
+        <div class="glass card p-8 reveal">
+          <div class="flex items-center gap-4 mb-6">
+            <div class="icon-chip">
+              <svg class="w-5 h-5 text-[#d4a96a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-2xl font-semibold text-[#f5f0e8]" style="font-family:'Playfair Display',serif;">
+                Cerita Kami
+              </h2>
+              <p class="text-[#b8a898] text-sm mt-1" style="font-family:'DM Sans',sans-serif;">
+                Perjalanan dari dapur rumahan sampai jadi favorit hampers.
+              </p>
+            </div>
+          </div>
+
+          <p class="text-[#b8a898] leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+            Ondel-Ondel lahir dari dapur rumahan dan resep keluarga untuk momen spesial.
+            Berawal dari permintaan teman dan keluarga, kami memproduksi secara konsisten
+            dengan fokus pada bahan premium, rasa yang “nagih”, dan packaging rapi.
+          </p>
+
+          <div class="mt-8 timeline space-y-5">
+            <div class="flex gap-4">
+              <div class="dot"></div>
+              <div>
+                <p class="text-[#f5f0e8] font-semibold" style="font-family:'Poppins',sans-serif;">Awal mula</p>
+                <p class="text-[#b8a898] text-sm" style="font-family:'DM Sans',sans-serif;">Resep keluarga untuk momen spesial.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="dot"></div>
+              <div>
+                <p class="text-[#f5f0e8] font-semibold" style="font-family:'Poppins',sans-serif;">Mulai produksi</p>
+                <p class="text-[#b8a898] text-sm" style="font-family:'DM Sans',sans-serif;">Permintaan meningkat → produksi konsisten.</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="dot"></div>
+              <div>
+                <p class="text-[#f5f0e8] font-semibold" style="font-family:'Poppins',sans-serif;">Premium hampers</p>
+                <p class="text-[#b8a898] text-sm" style="font-family:'DM Sans',sans-serif;">Fokus rasa, detail, dan packaging.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass card p-8 reveal">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-[#d4a96a] text-lg font-semibold" style="font-family:'Poppins',sans-serif;">Highlight</h3>
+            <div class="w-16 h-0.5 bg-[#c0602a] rounded-full"></div>
+          </div>
+
+          <ul class="text-[#b8a898] space-y-4" style="font-family:'DM Sans',sans-serif;">
+            <li class="flex gap-4">
+              <span class="text-[#c0602a] mt-1">✦</span>
+              <div>
+                <p class="text-[#f5f0e8] font-semibold">Fokus</p>
+                <p class="text-sm">Kue kering premium & hampers</p>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[#c0602a] mt-1">✦</span>
+              <div>
+                <p class="text-[#f5f0e8] font-semibold">Bahan</p>
+                <p class="text-sm">Pilihan & kualitas terjaga</p>
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[#c0602a] mt-1">✦</span>
+              <div>
+                <p class="text-[#f5f0e8] font-semibold">Target</p>
+                <p class="text-sm">Pelanggan rumahan & corporate</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="mt-8 soft-divider"></div>
+
+          <div class="mt-6">
+            <p class="text-[#b8a898] text-sm leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+              Detail kecil bikin beda: konsistensi rasa, kebersihan, dan packaging yang rapi.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="soft-divider max-w-screen-xl mx-auto"></div>
+
+    <!-- WHY US (tambahan section biar makin keren) -->
+    <section class="py-14 px-6 sm:px-10 lg:px-20">
+      <div class="max-w-screen-xl mx-auto">
+        <div class="text-center mb-10 reveal">
+          <span class="badge-tag mb-4 inline-flex">✦ <span>Kenapa Pilih Kami</span></span>
+          <h2 class="text-4xl sm:text-5xl font-bold text-[#f5f0e8] section-title">Yang Bikin Beda</h2>
+          <div class="w-20 h-0.5 bg-[#c0602a] mx-auto mt-6 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="glass card p-8 reveal">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="icon-chip">
+                <svg class="w-5 h-5 text-[#d4a96a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.5l2.5 5 5.5.8-4 3.9.9 5.6-4.9-2.6-4.9 2.6.9-5.6-4-3.9 5.5-.8L12 6.5z"/>
+                </svg>
+              </div>
+              <h3 class="text-[#f5f0e8] font-semibold" style="font-family:'Poppins',sans-serif;">Premium Rasa</h3>
+            </div>
+            <p class="text-[#b8a898] leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+              Rasa konsisten, tekstur pas, dan dibuat dengan bahan yang terjaga kualitasnya.
+            </p>
+          </div>
+
+          <div class="glass card p-8 reveal">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="icon-chip">
+                <svg class="w-5 h-5 text-[#d4a96a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M20 12v6a2 2 0 01-2 2H6a2 2 0 01-2-2v-6m16 0l-8 5-8-5m16 0l-8-5-8 5"/>
+                </svg>
+              </div>
+              <h3 class="text-[#f5f0e8] font-semibold" style="font-family:'Poppins',sans-serif;">Packaging Elegan</h3>
+            </div>
+            <p class="text-[#b8a898] leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+              Rapi, aman, dan cocok jadi hadiah. Hampers terasa lebih “niat”.
+            </p>
+          </div>
+
+          <div class="glass card p-8 reveal">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="icon-chip">
+                <svg class="w-5 h-5 text-[#d4a96a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-[#f5f0e8] font-semibold" style="font-family:'Poppins',sans-serif;">Fast Response</h3>
+            </div>
+            <p class="text-[#b8a898] leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+              Admin responsif & info jelas. Kamu bisa tanya dulu sebelum order.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="soft-divider max-w-screen-xl mx-auto"></div>
+
+    <!-- VISI MISI -->
+    <section class="py-14 px-6 sm:px-10 lg:px-20">
+      <div class="max-w-screen-xl mx-auto">
+        <div class="text-center mb-10 reveal">
+          <span class="badge-tag mb-4 inline-flex">✦ <span>Arah Kami</span></span>
+          <h2 class="text-4xl sm:text-5xl font-bold text-[#f5f0e8] section-title">Visi & Misi</h2>
+          <div class="w-20 h-0.5 bg-[#c0602a] mx-auto mt-6 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="glass card p-8 reveal">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="icon-chip">
+                <svg class="w-5 h-5 text-[#d4a96a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 3l2.09 6.26L21 9.27l-5 3.64L17.18 21 12 17.77 6.82 21 8 12.91 3 9.27l6.91-1.01L12 3z"/>
+                </svg>
+              </div>
+              <h3 class="text-[#d4a96a] text-xl font-semibold" style="font-family:'Poppins',sans-serif;">Visi</h3>
+            </div>
+            <p class="text-[#b8a898] leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+              Menjadi brand kue kering premium terpercaya dengan kualitas rasa yang konsisten
+              dan pengalaman belanja yang memuaskan.
+            </p>
+          </div>
+
+          <div class="glass card p-8 reveal">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="icon-chip">
+                <svg class="w-5 h-5 text-[#d4a96a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12l2 2 4-4M12 22C7.03 20.5 4 16.36 4 11V5l8-3 8 3v6c0 5.36-3.03 9.5-8 11z"/>
+                </svg>
+              </div>
+              <h3 class="text-[#d4a96a] text-xl font-semibold" style="font-family:'Poppins',sans-serif;">Misi</h3>
+            </div>
+
+            <ul class="text-[#b8a898] space-y-3 leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+              <li class="flex gap-3"><span class="text-[#c0602a]">•</span> Bahan premium & proses produksi higienis</li>
+              <li class="flex gap-3"><span class="text-[#c0602a]">•</span> Konsistensi rasa, tekstur, kualitas tiap batch</li>
+              <li class="flex gap-3"><span class="text-[#c0602a]">•</span> Pelayanan cepat, ramah, transparan</li>
+              <li class="flex gap-3"><span class="text-[#c0602a]">•</span> Inovasi varian & packaging hampers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="soft-divider max-w-screen-xl mx-auto"></div>
+
+    <!-- SWOT -->
+    <section class="py-14 px-6 sm:px-10 lg:px-20">
+      <div class="max-w-screen-xl mx-auto">
+        <div class="text-center mb-10 reveal">
+          <span class="badge-tag mb-4 inline-flex">✦ <span>Analisis</span></span>
+          <h2 class="text-4xl sm:text-5xl font-bold text-[#f5f0e8] section-title">SWOT</h2>
+          <div class="w-20 h-0.5 bg-[#c0602a] mx-auto mt-6 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="glass card p-8 reveal">
+            <h3 class="text-[#d4a96a] text-xl font-semibold mb-4" style="font-family:'Poppins',sans-serif;">Strength</h3>
+            <ul class="text-[#b8a898] space-y-2" style="font-family:'DM Sans',sans-serif;">
+              <li>• Bahan premium & rasa konsisten</li>
+              <li>• Brand image elegan, cocok untuk hampers</li>
+              <li>• Rating & repeat order tinggi</li>
+            </ul>
+          </div>
+
+          <div class="glass card p-8 reveal">
+            <h3 class="text-[#d4a96a] text-xl font-semibold mb-4" style="font-family:'Poppins',sans-serif;">Weakness</h3>
+            <ul class="text-[#b8a898] space-y-2" style="font-family:'DM Sans',sans-serif;">
+              <li>• Kapasitas produksi terbatas</li>
+              <li>• Ketergantungan musim (high season)</li>
+              <li>• Distribusi belum luas</li>
+            </ul>
+          </div>
+
+          <div class="glass card p-8 reveal">
+            <h3 class="text-[#d4a96a] text-xl font-semibold mb-4" style="font-family:'Poppins',sans-serif;">Opportunity</h3>
+            <ul class="text-[#b8a898] space-y-2" style="font-family:'DM Sans',sans-serif;">
+              <li>• Tren snack premium & hampers meningkat</li>
+              <li>• Marketplace & social commerce berkembang</li>
+              <li>• Peluang kerjasama corporate gift</li>
+            </ul>
+          </div>
+
+          <div class="glass card p-8 reveal">
+            <h3 class="text-[#d4a96a] text-xl font-semibold mb-4" style="font-family:'Poppins',sans-serif;">Threat</h3>
+            <ul class="text-[#b8a898] space-y-2" style="font-family:'DM Sans',sans-serif;">
+              <li>• Kompetitor harga lebih murah</li>
+              <li>• Fluktuasi harga bahan baku</li>
+              <li>• Tren produk cepat berubah</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA / HERO -->
+    <section class="px-6 sm:px-10 lg:px-20 pb-16">
+      <div class="max-w-screen-xl mx-auto glass card p-10 md:p-12 reveal">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+          <div>
+            <h2 class="text-4xl sm:text-5xl font-bold text-[#f5f0e8] section-title">
+              Cita Rasa<br>Bikin Ketagihan
+            </h2>
+            <p class="text-[#b8a898] mt-5 max-w-xl leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+              Kualitas premium, harga terjangkau — dari dapur kami langsung ke meja makan Anda.
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-2">
+              <span class="badge-tag">Packaging Rapi</span>
+              <span class="badge-tag">Fresh Batch</span>
+              <span class="badge-tag">Fast Response</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="#" class="btn-primary">Beli Sekarang</a>
+            <a href="contact.html"
+              class="px-6 py-3 rounded-full border border-[#2a1f10] text-[#f5f0e8] hover:border-[#c0602a] hover:text-[#d4a96a] transition"
+              style="font-family:'DM Sans',sans-serif;">
+              Tanya Admin
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (tetap seperti punya kamu) -->
+ <footer style="background:#0d0905; border-top: 1px solid #2a1f10;">
     <div class="mx-auto w-full max-w-screen-xl px-6 sm:px-10 lg:px-20 py-12">
 
         <!-- Top area -->
@@ -350,27 +641,46 @@
 
     </div>
 </footer>
-    <!-- Script Scroll Navbar -->
-    <script>
-        const nav = document.getElementById("mainNav");
-        window.addEventListener("scroll", () => {
-            nav.classList.toggle("scrolled", window.scrollY > 40);
-        });
 
-        const scrollBtn = document.getElementById("scrollTopBtn");
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 200) {
-      scrollBtn.classList.add("show");
-    } else {
-      scrollBtn.classList.remove("show");
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+  <script>
+    // navbar shadow/scrolled state (punya kamu)
+    const nav = document.getElementById("mainNav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 40);
+    });
+
+    // scroll-to-top button
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) scrollBtn.classList.add("show");
+      else scrollBtn.classList.remove("show");
+    });
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-  });
 
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-    </script>
+    // reveal on scroll
+    const reveals = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add("show");
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el=>io.observe(el));
 
+    // glow spot follow cursor (halus)
+    document.addEventListener("mousemove", (e) => {
+      document.querySelectorAll(".card").forEach(card => {
+        const r = card.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width) * 100;
+        const y = ((e.clientY - r.top) / r.height) * 100;
+        card.style.setProperty("--x", x + "%");
+        card.style.setProperty("--y", y + "%");
+      });
+    });
+  </script>
 </body>
 </html>

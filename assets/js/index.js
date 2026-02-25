@@ -32,7 +32,7 @@ function orderViaWhatsApp(productName, price) {
 // ============================================================
 // 📦 Expand / Collapse extra products
 // ============================================================
-const toggleBtn    = document.getElementById("toggleBtn");
+
 const extraGrid    = document.getElementById("extraGrid");
 const extraCards   = document.querySelectorAll(".card-extra");
 const divider      = document.getElementById("expandDivider");
@@ -99,3 +99,39 @@ function switchExploreTab(tab) {
       behavior: "smooth"
     });
   }
+
+  const reveals = document.querySelectorAll(".reveal");
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add("show");
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el=>io.observe(el));
+
+  // card hover spotlight tracking
+  document.addEventListener("mousemove", (e) => {
+    document.querySelectorAll(".card-premium").forEach(card => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      card.style.setProperty("--x", x + "%");
+      card.style.setProperty("--y", y + "%");
+    });
+  });
+
+  const toggleBtn = document.querySelector('[data-collapse-toggle]');
+    const navbar = document.getElementById('navbar-main');
+    const overlay = document.getElementById('navOverlay');
+
+    toggleBtn.addEventListener('click', () => {
+        navbar.classList.toggle('translate-x-full');
+        overlay.classList.toggle('opacity-0');
+        overlay.classList.toggle('pointer-events-none');
+    });
+
+    overlay.addEventListener('click', () => {
+        navbar.classList.add('translate-x-full');
+        overlay.classList.add('opacity-0');
+        overlay.classList.add('pointer-events-none');
+    });

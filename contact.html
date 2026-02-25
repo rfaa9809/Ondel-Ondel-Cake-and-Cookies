@@ -1,273 +1,368 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ondel-Ondel Cake & Cookies</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="assets/css/index.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ondel-Ondel Cake & Cookies - Contact</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="assets/css/index.css" rel="stylesheet" />
+
+  <style>
+    /* ===== Scroll Top Button ===== */
+    #scrollTopBtn{
+      position:fixed; bottom:35px; right:35px; width:55px; height:55px;
+      border:none; border-radius:50%; cursor:pointer;
+      background:linear-gradient(135deg,#8B5E34,#F28C38);
+      box-shadow:0 8px 25px rgba(242,140,56,.5);
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; visibility:hidden; transform:translateY(20px);
+      transition:all .4s ease; z-index:999;
+    }
+    #scrollTopBtn.show{opacity:1; visibility:visible; transform:translateY(0)}
+    #scrollTopBtn:hover{transform:translateY(0) scale(1.1); box-shadow:0 12px 30px rgba(244,180,0,.7)}
+    #scrollTopBtn svg{width:26px;height:26px;display:block}
+
+    /* ===== Premium background accents ===== */
+    .bg-accents::before,.bg-accents::after{
+      content:""; position:fixed; width:520px; height:520px; border-radius:999px;
+      filter:blur(90px); opacity:.18; pointer-events:none; z-index:0;
+    }
+    .bg-accents::before{top:-170px; left:-170px; background:#c0602a;}
+    .bg-accents::after{bottom:-190px; right:-190px; background:#d4a96a;}
+
+    .soft-divider{height:1px;background:linear-gradient(to right,transparent,#2a1f10,transparent);}
+
+    .badge{
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.45rem .9rem; border-radius:999px;
+      border:1px solid #2a1f10; background:rgba(13,9,5,.55);
+      color:#b8a898; font-size:.75rem; letter-spacing:.18em; text-transform:uppercase;
+      font-family:'DM Sans',sans-serif;
+    }
+
+    .glass{
+      background:rgba(22,16,8,.78);
+      border:1px solid #2a1f10;
+      backdrop-filter:blur(10px);
+    }
+    .card{border-radius:20px; transition:transform .25s ease,border-color .25s ease;}
+    .card:hover{transform:translateY(-4px); border-color:rgba(212,169,106,.35);}
+
+    .title{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+    }
+
+    .icon-chip{
+      width:46px;height:46px;border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid #2a1f10;background:rgba(13,9,5,.55);
+      flex:0 0 auto;
+    }
+
+    .field{
+      width:100%;
+      background:#0d0905;border:1px solid #2a1f10;color:#f5f0e8;
+      border-radius:14px;padding:12px 14px;outline:none;
+      transition:border-color .2s ease, box-shadow .2s ease;
+    }
+    .field:focus{border-color:#c0602a; box-shadow:0 0 0 4px rgba(192,96,42,.12);}
+    .muted{color:#7a6e62}
+  </style>
 </head>
-<style>
-  #scrollTopBtn {
-    position: fixed;
-    bottom: 35px;
-    right: 35px;
-    width: 55px;
-    height: 55px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-
-    background: linear-gradient(135deg, #8B5E34, #F28C38);
-    box-shadow: 0 8px 25px rgba(242, 140, 56, 0.5);
-
-    /* ✅ bikin icon panah tepat di tengah */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: all 0.4s ease;
-    z-index: 999;
-  }
-
-  #scrollTopBtn.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  /* ✅ hover aman (nggak ganggu animasi show) */
-  #scrollTopBtn:hover {
-    transform: translateY(0) scale(1.1);
-    box-shadow: 0 12px 30px rgba(244, 180, 0, 0.7);
-  }
-
-  /* ✅ biar svg gak “turun” sedikit */
-  #scrollTopBtn svg {
-    width: 26px;
-    height: 26px;
-    display: block;
-  }
-</style>
 
 <button id="scrollTopBtn" onclick="scrollToTop()" aria-label="Scroll to top">
   <svg viewBox="0 0 24 24" fill="none">
     <path d="M12 19V5M12 5L5 12M12 5L19 12"
-      stroke="white"
-      stroke-width="2.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"/>
+      stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
+
 <body class="bg-[#0a0805]">
-    <nav class="fixed w-full z-20 top-0 start-0" id="mainNav">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 py-5">
-            <a href="#" class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-[#c0602a] flex items-center justify-center">
-                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3a1 1 0 110 2 1 1 0 010-2zm-3 8l1.5-4.5h3L13 13H7z" />
-                    </svg>
-                </div>
-                <span class="text-[#f5f0e8] font-semibold text-base tracking-wide"
-                    style="font-family:'Playfair Display',serif">Ondel-Ondel</span>
-            </a>
-            <button data-collapse-toggle="navbar-main" type="button"
-                class="inline-flex items-center p-2 w-10 h-10 justify-center text-[#b8a898] rounded-md md:hidden hover:text-[#f5f0e8]"
-                aria-controls="navbar-main" aria-expanded="false">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
-                </svg>
-            </button>
-            <div class="hidden w-full md:block md:w-auto" id="navbar-main">
-                <ul class="flex flex-col md:flex-row md:gap-8 gap-4 mt-4 md:mt-0 p-4 md:p-0">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="contact.html" class="nav-link active">Contact Us</a></li>
-                    <li><a href="Services.html" class="nav-link">Services</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    </nav>
-    <div class="h-24"></div>
-
-    <section class="py-14 px-6 sm:px-10 lg:px-20">
-  <div class="max-w-screen-xl mx-auto text-center">
-    <p class="label-tag mb-3">✦ &nbsp; Hubungi Kami</p>
-    <h1 class="text-4xl sm:text-5xl font-bold text-[#f5f0e8]"
-      style="font-family:'Playfair Display',serif; font-style:italic;">
-      Contact Us
-    </h1>
-    <div class="w-16 h-0.5 bg-[#c0602a] mx-auto mt-5 rounded-full"></div>
-    <p class="mt-6 text-[#b8a898] max-w-2xl mx-auto leading-relaxed">
-      Punya pertanyaan, mau order, atau butuh konsultasi hampers? Hubungi kami lewat WhatsApp atau kirim pesan dari form di bawah.
-    </p>
-  </div>
-</section>
-
-<section class="pb-14 px-6 sm:px-10 lg:px-20">
-  <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-
-    <!-- KIRI: Info Kontak -->
-    <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-      <h2 class="text-2xl font-semibold text-[#f5f0e8] mb-6"
-        style="font-family:'Playfair Display',serif;">
-        Info Kontak
-      </h2>
-
-      <div class="space-y-4 text-[#b8a898]" style="font-family:'DM Sans',sans-serif;">
-        <!-- Phone -->
-        <div class="flex gap-3">
-          <div class="w-10 h-10 rounded-xl bg-[#0d0905] border border-[#2a1f10] flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-[#d4a96a]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293a1.125 1.125 0 01-1.21.38 12.035 12.035 0 01-7.143-7.143 1.125 1.125 0 01.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.713 3.102c-.125-.501-.575-.852-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-[#f5f0e8] font-semibold">Telepon / WhatsApp</p>
-            <a href="https://wa.me/6282211866577" target="_blank"
-              class="inline-flex items-center gap-2 text-[#25D366] hover:text-[#6ef59a] transition">
-              0822-1186-6577
-              <span class="text-xs text-[#7a6e62]">(klik untuk chat)</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Address -->
-        <div class="flex gap-3">
-          <div class="w-10 h-10 rounded-xl bg-[#0d0905] border border-[#2a1f10] flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-[#c0602a]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-[#f5f0e8] font-semibold">Alamat</p>
-            <p>Jl Kampus Unkris No 29 RT 5 RW 9, Indonesia</p>
-          </div>
-        </div>
-
-        <!-- Hours -->
-        <div class="flex gap-3">
-          <div class="w-10 h-10 rounded-xl bg-[#0d0905] border border-[#2a1f10] flex items-center justify-center flex-shrink-0">
-            <svg class="w-5 h-5 text-[#d4a96a]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-[#f5f0e8] font-semibold">Jam Operasional</p>
-            <p>Senin – Minggu, 08.00–20.00</p>
-          </div>
-        </div>
-
-        <!-- CTA -->
-        <a href="https://wa.me/6282211866577" target="_blank"
-          class="mt-4 inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 rounded-xl font-semibold
-                 bg-[#25D366] text-[#0a0805] hover:brightness-110 transition">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.37 0 0 5.37 0 12c0 2.1.55 4.15 1.6 5.97L0 24l6.2-1.58A11.93 11.93 0 0012 24c6.63 0 12-5.37 12-12 0-3.19-1.25-6.19-3.48-8.52zM12 21.82c-1.82 0-3.59-.49-5.14-1.42l-.37-.22-3.68.94.99-3.59-.24-.37A9.82 9.82 0 012.18 12C2.18 6.57 6.57 2.18 12 2.18c2.62 0 5.08 1.02 6.93 2.87A9.74 9.74 0 0121.82 12c0 5.43-4.39 9.82-9.82 9.82z"/>
+  <!-- NAVBAR (punya kamu, tidak diubah) -->
+  <nav class="fixed w-full z-20 top-0 start-0" id="mainNav">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-6 py-5">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-[#c0602a] flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 3a1 1 0 110 2 1 1 0 010-2zm-3 8l1.5-4.5h3L13 13H7z" />
           </svg>
-          Order via WhatsApp
-        </a>
+        </div>
+        <span class="text-[#f5f0e8] font-semibold text-base tracking-wide"
+          style="font-family:'Playfair Display',serif">Ondel-Ondel</span>
+      </a>
+
+      <button data-collapse-toggle="navbar-main" type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-[#b8a898] rounded-md md:hidden hover:text-[#f5f0e8]"
+        aria-controls="navbar-main" aria-expanded="false">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
+        </svg>
+      </button>
+
+      <div class="hidden w-full md:block md:w-auto" id="navbar-main">
+        <ul class="flex flex-col md:flex-row md:gap-8 gap-4 mt-4 md:mt-0 p-4 md:p-0">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link active">Contact Us</a></li>
+          <li><a href="Services.html" class="nav-link">Services</a></li>
+        </ul>
       </div>
     </div>
+  </nav>
 
-    <!-- KANAN: Map + Form -->
-    <div class="space-y-8">
+  <div class="h-24"></div>
 
-      <!-- MAP -->
-      <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl overflow-hidden">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-[#f5f0e8]" style="font-family:'Playfair Display',serif;">
-            Lokasi Kami
-          </h3>
-          <p class="text-[#b8a898] mt-2" style="font-family:'DM Sans',sans-serif;">
-            Klik map untuk melihat rute.
-          </p>
-        </div>
-        <div class="h-[320px]">
-          <!-- ✅ GANTI src ini dengan lokasi kamu dari Google Maps > Share > Embed a map -->
-          <iframe
-            class="w-full h-full"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q=Jl%20Kampus%20Unkris%20No%2029&output=embed">
-          </iframe>
-        </div>
-      </div>
+  <main class="relative bg-accents">
 
-      <!-- FORM (tanpa backend: kirim ke WhatsApp) -->
-      <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-        <h3 class="text-xl font-semibold text-[#f5f0e8] mb-2"
-          style="font-family:'Playfair Display',serif;">
-          Kirim Pesan
-        </h3>
-        <p class="text-[#b8a898] mb-6" style="font-family:'DM Sans',sans-serif;">
-          Isi form, nanti otomatis terbuka WhatsApp dengan pesan kamu.
+    <!-- HERO (lebih padat) -->
+    <section class="pt-10 pb-8 px-6 sm:px-10 lg:px-20 relative z-10">
+      <div class="max-w-screen-xl mx-auto text-center">
+        <span class="badge">✦ <span>Hubungi Kami</span></span>
+
+        <h1 class="mt-4 text-7xl sm:text-5xl font-bold text-[#f5f0e8] title">
+          Contact Us
+        </h1>
+
+        <div class="w-16 h-0.5 bg-[#c0602a] mx-auto mt-5 rounded-full"></div>
+
+        <p class="mt-5 text-[#b8a898] max-w-2xl mx-auto leading-relaxed"
+          style="font-family:'DM Sans',sans-serif;">
+          Order cepat? Chat WhatsApp. Konsultasi hampers? Isi form. Kami balas secepatnya.
         </p>
 
-        <form id="contactForm" class="space-y-4" style="font-family:'DM Sans',sans-serif;">
-          <div>
-            <label class="text-[#b8a898] text-sm">Nama</label>
-            <input id="nama" type="text" required
-              class="mt-2 w-full rounded-xl bg-[#0d0905] border border-[#2a1f10] text-[#f5f0e8] px-4 py-3 outline-none
-                     focus:border-[#c0602a] focus:ring-0" placeholder="Nama kamu" />
+        <!-- mini stats biar penuh -->
+        <div class="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl mx-auto">
+          <div class="glass card p-4 text-left">
+            <p class="text-xs tracking-widest uppercase text-[#7a6e62]" style="font-family:'DM Sans',sans-serif;">Respons</p>
+            <p class="text-[#f5f0e8] font-semibold mt-1" style="font-family:'Poppins',sans-serif;">&lt; 15 Menit</p>
+            <p class="text-[#b8a898] text-sm mt-1" style="font-family:'DM Sans',sans-serif;">Jam kerja 08.00–20.00</p>
           </div>
-
-          <div>
-            <label class="text-[#b8a898] text-sm">No. WhatsApp</label>
-            <input id="wa" type="text" required
-              class="mt-2 w-full rounded-xl bg-[#0d0905] border border-[#2a1f10] text-[#f5f0e8] px-4 py-3 outline-none
-                     focus:border-[#c0602a]" placeholder="Contoh: 0812xxxx" />
+          <div class="glass card p-4 text-left">
+            <p class="text-xs tracking-widest uppercase text-[#7a6e62]" style="font-family:'DM Sans',sans-serif;">Area</p>
+            <p class="text-[#f5f0e8] font-semibold mt-1" style="font-family:'Poppins',sans-serif;">Jakarta & Sekitar</p>
+            <p class="text-[#b8a898] text-sm mt-1" style="font-family:'DM Sans',sans-serif;">Bisa tanya dulu ya</p>
           </div>
-
-          <div>
-            <label class="text-[#b8a898] text-sm">Pesan</label>
-            <textarea id="pesan" rows="4" required
-              class="mt-2 w-full rounded-xl bg-[#0d0905] border border-[#2a1f10] text-[#f5f0e8] px-4 py-3 outline-none
-                     focus:border-[#c0602a]" placeholder="Tulis pesan kamu..."></textarea>
+          <div class="glass card p-4 text-left">
+            <p class="text-xs tracking-widest uppercase text-[#7a6e62]" style="font-family:'DM Sans',sans-serif;">Hampers</p>
+            <p class="text-[#f5f0e8] font-semibold mt-1" style="font-family:'Poppins',sans-serif;">Corporate / Event</p>
+            <p class="text-[#b8a898] text-sm mt-1" style="font-family:'DM Sans',sans-serif;">Request packaging elegan</p>
           </div>
-
-          <button type="submit"
-            class="w-full sm:w-auto px-6 py-3 rounded-xl font-semibold
-                   bg-gradient-to-r from-[#8B5E34] to-[#F28C38] text-white
-                   hover:brightness-110 transition">
-            Kirim via WhatsApp
-          </button>
-        </form>
-      </div>
-
-      <!-- FAQ MINI -->
-      <div class="bg-[#161008] border border-[#2a1f10] rounded-2xl p-8">
-        <h3 class="text-xl font-semibold text-[#f5f0e8] mb-4"
-          style="font-family:'Playfair Display',serif;">
-          Pertanyaan Umum
-        </h3>
-        <div class="space-y-3 text-[#b8a898]" style="font-family:'DM Sans',sans-serif;">
-          <p><span class="text-[#d4a96a] font-semibold">•</span> Pengiriman area mana saja? <span class="text-[#7a6e62]">Jakarta & sekitarnya (bisa tanya dulu).</span></p>
-          <p><span class="text-[#d4a96a] font-semibold">•</span> Bisa order untuk event/corporate? <span class="text-[#7a6e62]">Bisa, kami siapkan paket hampers.</span></p>
-          <p><span class="text-[#d4a96a] font-semibold">•</span> Pre-order berapa hari? <span class="text-[#7a6e62]">Tergantung produk & jumlah, minimal 1–2 hari.</span></p>
         </div>
       </div>
+    </section>
 
-    </div>
+    <div class="soft-divider max-w-screen-xl mx-auto"></div>
 
-  </div>
-</section>
+    <!-- GRID UTAMA: lebih padat & penuh -->
+    <section class="py-10 px-6 sm:px-10 lg:px-20 relative z-10">
+      <div class="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
- 
+        <!-- KIRI (Info + Quick actions) -->
+        <aside class="lg:col-span-4 space-y-6">
 
+          <div class="glass card p-6">
+            <h2 class="text-xl font-semibold text-[#f5f0e8]" style="font-family:'Playfair Display',serif;">
+              Info Kontak
+            </h2>
+            <p class="text-[#b8a898] text-sm mt-2" style="font-family:'DM Sans',sans-serif;">
+              Cara paling cepat: WhatsApp.
+            </p>
+
+            <div class="mt-5 space-y-4" style="font-family:'DM Sans',sans-serif;">
+              <div class="flex gap-4">
+                <div class="icon-chip">
+                  <svg class="w-5 h-5 text-[#d4a96a]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293a1.125 1.125 0 01-1.21.38 12.035 12.035 0 01-7.143-7.143 1.125 1.125 0 01.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.713 3.102c-.125-.501-.575-.852-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[#f5f0e8] font-semibold">WhatsApp</p>
+                  <a href="https://wa.me/6282211866577" target="_blank"
+                    class="text-[#25D366] hover:text-[#6ef59a] transition font-semibold">
+                    0822-1186-6577
+                  </a>
+                  <p class="text-xs muted mt-1">Klik untuk chat langsung</p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div class="icon-chip">
+                  <svg class="w-5 h-5 text-[#c0602a]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[#f5f0e8] font-semibold">Alamat</p>
+                  <p class="text-[#b8a898] text-sm">Jl Kampus Unkris No 29 RT 5 RW 9, Indonesia</p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div class="icon-chip">
+                  <svg class="w-5 h-5 text-[#d4a96a]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[#f5f0e8] font-semibold">Jam</p>
+                  <p class="text-[#b8a898] text-sm">Senin – Minggu, 08.00–20.00</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="soft-divider my-5"></div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <a href="https://wa.me/6282211866577" target="_blank"
+                class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold
+                       bg-[#25D366] text-[#0a0805] hover:brightness-110 transition">
+                Chat WhatsApp
+              </a>
+              <a href="tel:+6282211866577"
+                class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-semibold
+                       border border-[#2a1f10] text-[#f5f0e8] hover:border-[#c0602a] hover:text-[#d4a96a] transition">
+                Telepon
+              </a>
+            </div>
+          </div>
+
+          <!-- Mini promo / note biar penuh -->
+          <div class="glass card p-6">
+            <p class="text-xs tracking-widest uppercase text-[#7a6e62]" style="font-family:'DM Sans',sans-serif;">
+              Catatan Order
+            </p>
+            <h3 class="text-[#f5f0e8] font-semibold mt-2" style="font-family:'Poppins',sans-serif;">
+              Untuk hampers & corporate
+            </h3>
+            <p class="text-[#b8a898] text-sm mt-2 leading-relaxed" style="font-family:'DM Sans',sans-serif;">
+              Sertakan jumlah, tanggal kirim, dan budget — biar kami bisa rekomendasikan paket terbaik.
+            </p>
+          </div>
+
+        </aside>
+
+        <!-- TENGAH (FORM) -->
+        <section class="lg:col-span-4">
+          <div class="glass card p-6">
+            <h3 class="text-xl font-semibold text-[#f5f0e8]" style="font-family:'Playfair Display',serif;">
+              Kirim Pesan
+            </h3>
+            <p class="text-[#b8a898] text-sm mt-2" style="font-family:'DM Sans',sans-serif;">
+              Setelah klik tombol, WhatsApp akan terbuka otomatis.
+            </p>
+
+            <form id="contactForm" class="mt-5 space-y-4" style="font-family:'DM Sans',sans-serif;">
+              <div>
+                <label class="text-[#b8a898] text-sm">Nama</label>
+                <input id="nama" type="text" required class="field mt-2" placeholder="Nama kamu" />
+              </div>
+
+              <div>
+                <label class="text-[#b8a898] text-sm">No. WhatsApp</label>
+                <input id="wa" type="text" required class="field mt-2" placeholder="Contoh: 0812xxxx" />
+              </div>
+
+              <div>
+                <label class="text-[#b8a898] text-sm">Kategori</label>
+                <select id="kategori" class="field mt-2">
+                  <option value="Order Produk">Order Produk</option>
+                  <option value="Hampers / Gift">Hampers / Gift</option>
+                  <option value="Corporate / Event">Corporate / Event</option>
+                  <option value="Pertanyaan Umum">Pertanyaan Umum</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="text-[#b8a898] text-sm">Tanggal dibutuhkan</label>
+                  <input id="tanggal" type="date" class="field mt-2" />
+                </div>
+                <div>
+                  <label class="text-[#b8a898] text-sm">Jumlah</label>
+                  <input id="jumlah" type="text" class="field mt-2" placeholder="Misal: 5 box" />
+                </div>
+              </div>
+
+              <div>
+                <label class="text-[#b8a898] text-sm">Pesan</label>
+                <textarea id="pesan" rows="5" required class="field mt-2" placeholder="Tulis pesan kamu..."></textarea>
+                <p class="text-xs muted mt-2">Semakin detail, semakin cepat kami bantu.</p>
+              </div>
+
+              <button type="submit"
+                class="w-full px-6 py-3 rounded-xl font-semibold
+                       bg-gradient-to-r from-[#8B5E34] to-[#F28C38] text-white
+                       hover:brightness-110 transition">
+                Kirim via WhatsApp
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <!-- KANAN (MAP + FAQ) -->
+        <aside class="lg:col-span-4 space-y-6">
+
+          <div class="glass card overflow-hidden">
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-[#f5f0e8]" style="font-family:'Playfair Display',serif;">
+                Lokasi Kami
+              </h3>
+              <p class="text-[#b8a898] text-sm mt-2" style="font-family:'DM Sans',sans-serif;">
+                Klik untuk melihat rute.
+              </p>
+            </div>
+
+            <div class="relative h-[260px]">
+              <iframe
+                class="w-full h-full"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps?q=Jl%20Kampus%20Unkris%20No%2029&output=embed">
+              </iframe>
+
+              <a href="https://www.google.com/maps?q=Jl%20Kampus%20Unkris%20No%2029" target="_blank"
+                class="absolute bottom-4 right-4 px-4 py-2 rounded-xl font-semibold text-sm
+                       bg-[#0d0905]/80 border border-[#2a1f10] text-[#f5f0e8]
+                       hover:border-[#c0602a] hover:text-[#d4a96a] transition"
+                style="font-family:'DM Sans',sans-serif;">
+                Buka di Google Maps →
+              </a>
+            </div>
+          </div>
+
+          <div class="glass card p-6">
+            <h3 class="text-xl font-semibold text-[#f5f0e8]" style="font-family:'Playfair Display',serif;">
+              Pertanyaan Umum
+            </h3>
+
+            <div class="mt-4 space-y-3 text-[#b8a898]" style="font-family:'DM Sans',sans-serif;">
+              <div class="p-4 rounded-xl bg-[#0d0905] border border-[#2a1f10]">
+                <p class="text-[#f5f0e8] font-semibold">Pengiriman area mana?</p>
+                <p class="text-sm mt-1 muted">Jakarta & sekitarnya (tanya dulu ya).</p>
+              </div>
+              <div class="p-4 rounded-xl bg-[#0d0905] border border-[#2a1f10]">
+                <p class="text-[#f5f0e8] font-semibold">Bisa corporate/event?</p>
+                <p class="text-sm mt-1 muted">Bisa, tersedia paket hampers premium.</p>
+              </div>
+              <div class="p-4 rounded-xl bg-[#0d0905] border border-[#2a1f10]">
+                <p class="text-[#f5f0e8] font-semibold">Minimal pre-order?</p>
+                <p class="text-sm mt-1 muted">Tergantung produk, biasanya 1–2 hari.</p>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- FOOTER (punya kamu, tetap) -->
     <footer style="background:#0d0905; border-top: 1px solid #2a1f10;">
     <div class="mx-auto w-full max-w-screen-xl px-6 sm:px-10 lg:px-20 py-12">
 
@@ -368,42 +463,53 @@
 
     </div>
 </footer>
-    <!-- Script Scroll Navbar -->
-    <script>
-        const nav = document.getElementById("mainNav");
-        window.addEventListener("scroll", () => {
-            nav.classList.toggle("scrolled", window.scrollY > 40);
-        });
 
-        const scrollBtn = document.getElementById("scrollTopBtn");
 
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 200) {
-      scrollBtn.classList.add("show");
-    } else {
-      scrollBtn.classList.remove("show");
-    }
-  });
+  </main>
 
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-   const form = document.getElementById("contactForm");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const nama = document.getElementById("nama").value.trim();
-      const wa = document.getElementById("wa").value.trim();
-      const pesan = document.getElementById("pesan").value.trim();
-
-      const nomorTujuan = "6285716275965"; // ✅ nomor admin WA (format 62)
-      const text = `Halo Ondel-Ondel!%0A%0ANama: ${encodeURIComponent(nama)}%0AWA: ${encodeURIComponent(wa)}%0A%0APesan:%0A${encodeURIComponent(pesan)}`;
-
-      window.open(`https://wa.me/${nomorTujuan}?text=${text}`, "_blank");
+  <script>
+    // navbar scrolled (punya kamu)
+    const nav = document.getElementById("mainNav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 40);
     });
-  }
-    </script>
 
+    // scroll top button
+    const scrollBtn = document.getElementById("scrollTopBtn");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) scrollBtn.classList.add("show");
+      else scrollBtn.classList.remove("show");
+    });
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // form to WhatsApp
+    const form = document.getElementById("contactForm");
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const nama = document.getElementById("nama").value.trim();
+        const wa = document.getElementById("wa").value.trim();
+        const kategori = document.getElementById("kategori").value;
+        const tanggal = document.getElementById("tanggal").value;
+        const jumlah = document.getElementById("jumlah").value.trim();
+        const pesan = document.getElementById("pesan").value.trim();
+
+        const nomorTujuan = "6285716275965"; // admin tujuan
+        const msg =
+          `Halo Ondel-Ondel!%0A%0A` +
+          `Nama: ${encodeURIComponent(nama)}%0A` +
+          `WA: ${encodeURIComponent(wa)}%0A` +
+          `Kategori: ${encodeURIComponent(kategori)}%0A` +
+          `Tanggal dibutuhkan: ${encodeURIComponent(tanggal || "-")}%0A` +
+          `Jumlah: ${encodeURIComponent(jumlah || "-")}%0A%0A` +
+          `Pesan:%0A${encodeURIComponent(pesan)}`;
+
+        window.open(`https://wa.me/${nomorTujuan}?text=${msg}`, "_blank");
+      });
+    }
+  </script>
 </body>
 </html>
